@@ -16,3 +16,14 @@
 @import url(../blocks/profile/profile__name.css);
 @import url(../blocks/profile/profile__name-wrapper.css);
 @import url(../blocks/profile/profile__edit-button.css);
+
+@import url(../blocks/cards/cards.css);
+
+@import url(../blocks/card/card.css);
+@import url(../blocks/card/card__image.css);
+@import url(../blocks/card/card__caption.css);
+@import url(../blocks/card/card__capture-wrapper.css);
+
+@import url(../blocks/footer/footer.css);
+
+

@@ -1,0 +1,12 @@
+.card__capture-wrapper {
+    box-sizing: border-box;
+    
+    height: 79px;
+    width: 100%;
+
+    padding: 0 20px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

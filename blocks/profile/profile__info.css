@@ -10,7 +10,7 @@
 
 @media (max-width: 1000px) {
     .profile__info {
-        max-width: calc(100% - 200px);
+        /* max-width: calc(100% - 200px); */
     }
 }
 
