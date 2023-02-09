@@ -1,0 +1,17 @@
+.card {
+    box-sizing: border-box;
+
+    width: 100%;
+    padding: 0;
+    margin: 0;
+
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+
+    font-size: 0;
+    color: black;
+
+    /* background: url(../../images/cards/balaklava.jpg) center no-repeat;
+    background-size: cover; */
+}
