@@ -26,6 +26,7 @@
 @import url(../blocks/card/__caption/card__caption.css);
 
 @import url(../blocks/footer/footer.css);
+@import url(../blocks/footer/__link/footer__link.css);
 
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/__container/popup__container.css);
