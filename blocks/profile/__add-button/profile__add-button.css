@@ -4,7 +4,7 @@
 
     border: 2px solid white;
 
-    background: url(../../images/plusButtonIcon.svg) center no-repeat;
+    background: url(../../../images/plusButtonIcon.svg) center no-repeat;
 
     cursor: pointer;
 }

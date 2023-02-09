@@ -5,10 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
-
     <link rel="shortcut icon" href="./images/favicon.svg" type="image/x-icon">
 
     <link rel="stylesheet" href="./pages/index.css">
@@ -28,7 +24,7 @@
                         <h1 class="profile__name">Максим</h1>
                         <button class="profile__edit-button hoverable"></button>
                     </div>
-                    <p class="profile__description">Фрилансер, инфлюенсер</p>
+                    <p class="profile__about">Фрилансер, инфлюенсер</p>
                 </div>
             </div>
 
@@ -87,13 +83,13 @@
         </section>
     </main>
 
-    <div class="page-overlay hidden">
-        <form class="edit-popup">
-            <button class="edit-popup__close-button hoverable" type="button"></button>
-            <h2 class="edit-popup__title">Редактировать профиль</h2>
-            <input type="text" class="edit-popup__input" name="name" placeholder="Имя">
-            <input type="text" class="edit-popup__input" name="status" placeholder="Статус">
-            <button type="submit" class="edit-popup__submit-button">Сохранить</button>
+    <div class="popup">
+        <form class="popup__container">
+            <button class="popup__close-button hoverable" type="button"></button>
+            <h2 class="popup__title">Редактировать профиль</h2>
+            <input type="text" class="popup__input" name="name" placeholder="Имя">
+            <input type="text" class="popup__input" name="about" placeholder="О себе">
+            <button type="submit" class="popup__submit-button">Сохранить</button>
         </form>
     </div>
 
