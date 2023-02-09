@@ -1,0 +1,14 @@
+.edit-popup__close-button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+
+    width: 36px;
+    height: 36px;
+
+    background: url(../../images/closePopup.svg) center no-repeat;
+
+    position: absolute;
+    top: -40px;
+    right: -40px;
+}
