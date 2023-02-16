@@ -2,10 +2,10 @@
     box-sizing: border-box;
     
     max-width: 100%;
+    min-width: 180px;
 
     display: flex;
     align-items: center;
-    /* flex-direction: column; */
 
     gap: 30px;
 }
@@ -13,5 +13,6 @@
 @media (max-width: 500px) {
     .profile__info-wrapper {
         flex-direction: column;
+        gap: 26px;
     }
 }

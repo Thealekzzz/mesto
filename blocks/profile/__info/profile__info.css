@@ -5,13 +5,8 @@
     flex-direction: column;
 
     max-width: 500px;
+    min-width: 300px;
     gap: 16px;
-}
-
-@media (max-width: 1000px) {
-    .profile__info {
-        /* max-width: calc(100% - 200px); */
-    }
 }
 
 @media (max-width: 800px) {
@@ -25,5 +20,6 @@
         max-width: 100%;
         text-align: center;
         align-items: center;
+        gap: 12px;
     }
 }

@@ -9,7 +9,7 @@
 
     <link rel="stylesheet" href="./pages/index.css">
 
-    <title>Mesto Russia</title>
+    <title lang="en">Mesto Russia</title>
 </head>
 <body class="page">
     <header class="header">
@@ -22,81 +22,87 @@
                 <div class="profile__info">
                     <div class="profile__name-wrapper">
                         <h1 class="profile__name">Максим</h1>
-                        <button class="profile__edit-button hoverable"></button>
+                        <button class="profile__edit-button hoverable hoverable_sixty" type="button" aria-label="Редактировать профиль"></button>
                     </div>
                     <p class="profile__about">Фрилансер, инфлюенсер</p>
                 </div>
             </div>
 
-            <button class="profile__add-button hoverable"></button>
+            <button class="profile__add-button hoverable hoverable_sixty" type="button" aria-label="Добавить фото"></button>
         </section>
 
-        <section class="cards" aria-label="Фотографии">
-            <article class="card">
+        <ul class="cards" aria-label="Фотографии">
+            <li class="card">
                     <img src="./images/cards/balaklava.jpg" alt="Провинциальные дома, покрытые зеленью." class="card__image">
                     <div class="card__capture-wrapper">
                         <h2 class="card__caption">Балаклава</h2>
-                        <img src="./images/like.svg" alt="Лайк, кнопка." class="card__like hoverable">
+                        <button type="button" aria-label="Поставить лайк" class="card__like hoverable"></button>
                     </div>
 
-            </article>
-            <article class="card">
+            </li>
+            <li class="card">
                     <img src="./images/cards/mangup.jpg" alt="Вершина покрытой зелеными деревьями горы." class="card__image">
                     <div class="card__capture-wrapper">
                         <h2 class="card__caption">Мангуп-Кале</h2>
-                        <img src="./images/like.svg" alt="Лайк, кнопка." class="card__like hoverable">
+                        <button type="button" aria-label="Поставить лайк" class="card__like hoverable"></button>
                     </div>
 
-            </article>
-            <article class="card">
+            </li>
+            <li class="card">
                     <img src="./images/cards/kacha.jpg" alt="Песочный пляж с голубой водой." class="card__image">
                     <div class="card__capture-wrapper">
                         <h2 class="card__caption">Кача</h2>
-                        <img src="./images/like.svg" alt="Лайк, кнопка." class="card__like hoverable">
+                        <button type="button" aria-label="Поставить лайк" class="card__like hoverable"></button>
                     </div>
 
-            </article>
-            <article class="card">
+            </li>
+            <li class="card">
                     <img src="./images/cards/yagodnoe.jpg" alt="Сидящий на пирсе на озере человек." class="card__image">
                     <div class="card__capture-wrapper">
                         <h2 class="card__caption">Ягодное</h2>
-                        <img src="./images/like.svg" alt="Лайк, кнопка." class="card__like hoverable">
+                        <button type="button" aria-label="Поставить лайк" class="card__like hoverable"></button>
                     </div>
 
-            </article>
-            <article class="card">
+            </li>
+            <li class="card">
                     <img src="./images/cards/fiolent.jpg" alt="Скалистый морской берег." class="card__image">
                     <div class="card__capture-wrapper">
                         <h2 class="card__caption">Фиолент, Севастополь</h2>
-                        <img src="./images/like.svg" alt="Лайк, кнопка." class="card__like hoverable">
+                        <button type="button" aria-label="Поставить лайк" class="card__like hoverable"></button>
                     </div>
 
-            </article>
-            <article class="card">
+            </li>
+            <li class="card">
                     <img src="./images/cards/foros.jpg" alt="Церковь на краю отвесной скалы." class="card__image">
                     <div class="card__capture-wrapper">
                         <h2 class="card__caption">Форос, Ялта</h2>
-                        <img src="./images/like.svg" alt="Лайк, кнопка." class="card__like hoverable">
+                        <button type="button" aria-label="Поставить лайк" class="card__like hoverable"></button>
                     </div>
 
-            </article>
-        </section>
+            </li>
+        </ul>
     </main>
 
-    <div class="popup">
-        <form class="popup__container">
-            <button class="popup__close-button hoverable" type="button"></button>
-            <h2 class="popup__title">Редактировать профиль</h2>
-            <input type="text" class="popup__input" name="name" placeholder="Имя">
-            <input type="text" class="popup__input" name="about" placeholder="О себе">
-            <button type="submit" class="popup__submit-button">Сохранить</button>
-        </form>
-    </div>
-
     <footer class="footer">
-        &copy; 2023 Mesto Russia &#215; <a href="https://t.me/kznv_alex" class="footer__link hoverable" target="_blank">Alex Kuznetsov</a>
+        <p lang="en">
+            <span>&copy; 2023 Mesto Russia &#215;</span> 
+            <a href="https://t.me/kznv_alex" class="footer__link hoverable hoverable_eighty" target="_blank" rel="noopener noreferrer">Alex Kuznetsov</a></p>
     </footer>
 
-    <script src="./scripts/index.js"></script>
+    <div class="popup">
+        <div class="popup__container">
+            <h2 class="popup__title">Редактировать профиль</h2>
+            <button class="popup__close-button hoverable" type="button"></button>
+
+            <form class="popup__form" name="editProfile">
+                <input type="text" class="popup__input popup__input_data_name" name="name" placeholder="Имя">
+                <input type="text" class="popup__input popup__input_data_about" name="about" placeholder="О себе">
+                <button type="submit" class="popup__submit-button hoverable hoverable_eighty">Сохранить</button>
+            </form>
+
+        </div>
+    </div>
+
+    <script src="./scripts/index.js" defer></script>
 </body>
 </html>

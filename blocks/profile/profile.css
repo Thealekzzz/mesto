@@ -7,6 +7,8 @@
 
     width: 880px;
     margin: 0 auto 50px;
+
+    gap: 20px;
 }
 
 @media (max-width: 1000px) {
@@ -18,7 +20,7 @@
 @media (max-width: 800px) {
     .profile {
         flex-direction: column;
-        gap: 36px;
+        gap: 32px;
     }
 }
 
@@ -26,5 +28,6 @@
     .profile {
         padding: 0 20px;
         width: 100%;
+        margin-bottom: 36px;
     }
 }

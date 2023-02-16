@@ -1,36 +1,42 @@
-const editButton = document.querySelector(".profile__edit-button")
-const closeButton = document.querySelector(".popup__close-button")
+const editButton = document.querySelector(".profile__edit-button");
+const closeButton = document.querySelector(".popup__close-button");
 
-const popupOverlay = document.querySelector(".popup")
-const popup = document.querySelector(".popup__container")
+const popupOverlay = document.querySelector(".popup");
+const popup = document.querySelector(".popup__form");
 
-const inputs = document.querySelectorAll(".popup__input")
+const inputName = document.querySelector(".popup__input_data_name");
+const inputAbout = document.querySelector(".popup__input_data_about");
 
-const profileName = document.querySelector(".profile__name")
-const profileAbout = document.querySelector(".profile__about")
+const profileName = document.querySelector(".profile__name");
+const profileAbout = document.querySelector(".profile__about");
+
+
+function onEditButtonClick() {
+    popupOverlay.classList.add("popup_opened");
+
+    inputName.value = profileName.textContent;
+    inputAbout.value = profileAbout.textContent;
+}
+
+function onCloseButtonClick() {
+    popupOverlay.classList.remove("popup_opened");
+}
+
+function onPopupSubmit(e) {
+    e.preventDefault();
+
+    onCloseButtonClick()
+    
+    profileName.textContent = inputName.value.trim();
+    profileAbout.textContent = inputAbout.value.trim();
+}
 
 
 // Открытие попапа по нажатию на кнопку edit
-editButton.addEventListener("click", () => {
-    popupOverlay.classList.add("popup_opened")
-
-    inputs[0].value = profileName.textContent
-    inputs[1].value = profileAbout.textContent
-
-})
+editButton.addEventListener("click", onEditButtonClick)
 
 // Закрытие попапа без сохранения данных по нажатию на кнопку закрыть
-closeButton.addEventListener("click", () => {
-    popupOverlay.classList.remove("popup_opened")
-
-})
+closeButton.addEventListener("click", onCloseButtonClick)
 
 // Закрытие попапа с сохранением данных по нажатию на кнопку сохранить
-popup.addEventListener("submit", (e) => {
-    e.preventDefault()
-
-    popupOverlay.classList.remove("popup_opened")
-    profileName.textContent = inputs[0].value.trim()
-    profileAbout.textContent = inputs[1].value.trim()
-
-})
+popup.addEventListener("submit", onPopupSubmit)

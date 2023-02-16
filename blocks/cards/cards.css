@@ -4,23 +4,30 @@
     display: grid;
     justify-content: center;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    gap: 20px 17px;
 
     width: 880px;
     margin: 0 auto 66px;
+    padding: 0;
+
+    list-style: none;
 }
 
 @media (max-width: 1000px) {
     .cards {
-        width: 88%;
+        width: fit-content;
+        padding: 0 20px;
+
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
     .cards {
         padding: 0 20px;
-        width: 100%;
+        width: fit-content;
         grid-template-columns: 1fr;
+
+        margin-bottom: 48px;
     }
 }
