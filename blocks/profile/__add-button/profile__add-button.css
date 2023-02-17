@@ -6,7 +6,7 @@
     border-radius: 2px;
 
     background: url(../../../images/plusButtonIcon.svg) center no-repeat;
-    background-size: 22px;
+    background-size: 22px 22px;
 
     cursor: pointer;
 }
@@ -22,6 +22,6 @@
         width: 282px;
         margin-left: 0;
 
-        background-size: 18px;
+        background-size: 16px 16px;
     }
 }
