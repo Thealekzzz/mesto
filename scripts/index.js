@@ -115,18 +115,24 @@ function closePopup(popupElement) {
 
 function renderCard(cardData) {
     const cardItem = cardTemplate.querySelector(".card-list-item").cloneNode(true);
+    const cardImage = cardItem.querySelector(".card__image");
 
 
     function likeButtonClicked(e) {
+        e.stopPropagation();
         e.target.classList.toggle("card__like-button_active");
     }
 
     function removeButtonClicked(e) {
+        e.stopPropagation();
         e.target.closest(".card-list-item").remove();
     }
 
-    function cardClicked(e) {
-        viewPopupOverlay.querySelector(".popup__image").setAttribute("src", cardData.link);
+    function onCardClicked(e) {
+        const viewPopupImage = viewPopupOverlay.querySelector(".popup__image");
+
+        viewPopupImage.setAttribute("src", cardData.link);
+        viewPopupImage.setAttribute("alt", `${cardData.name}, фото.`);
         viewPopupOverlay.querySelector(".popup__caption").textContent = cardData.name;
 
         showPopup(viewPopupOverlay);
@@ -134,11 +140,12 @@ function renderCard(cardData) {
 
 
     cardItem.querySelector(".card__caption").textContent = cardData.name;
-    cardItem.querySelector(".card__image").setAttribute("src", cardData.link);
+    cardImage.setAttribute("src", cardData.link);
+    cardImage.setAttribute("alt", `${cardData.name}, фото.`);
 
-    cardItem.addEventListener("click", cardClicked);
+    cardItem.addEventListener("click", onCardClicked);
     cardItem.querySelector(".card__like-button").addEventListener("click", likeButtonClicked);
-    cardItem.querySelector(".card__remove-card").addEventListener("click", removeButtonClicked);
+    cardItem.querySelector(".card__remove-button").addEventListener("click", removeButtonClicked);
 
     cardsList.insertAdjacentElement("afterbegin", cardItem);
 }
