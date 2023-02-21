@@ -36,81 +36,7 @@
 
         <section aria-label="Места">
             <ul class="cards">
-                <li>
-                    <article class="card">
-                        <img src="./images/cards/balaklava.jpg" alt="Провинциальные дома, покрытые зеленью."
-                            class="card__image">
-                        <div class="card__capture-wrapper">
-                            <h2 class="card__caption">Балаклава</h2>
-                            <button type="button" aria-label="Кнопка поставить лайк."
-                                class="card__like-button hoverable hoverable_level_medium"></button>
-                        </div>
 
-                    </article>
-
-                </li>
-                <li>
-                    <article class="card">
-                        <img src="./images/cards/mangup.jpg" alt="Вершина покрытой зелеными деревьями горы."
-                            class="card__image">
-                        <div class="card__capture-wrapper">
-                            <h2 class="card__caption">Мангуп-Кале</h2>
-                            <button type="button" aria-label="Кнопка поставить лайк."
-                                class="card__like-button hoverable hoverable_level_medium"></button>
-                        </div>
-
-                    </article>
-
-                </li>
-                <li>
-                    <article class="card">
-                        <img src="./images/cards/kacha.jpg" alt="Песочный пляж с голубой водой." class="card__image">
-                        <div class="card__capture-wrapper">
-                            <h2 class="card__caption">Кача</h2>
-                            <button type="button" aria-label="Кнопка поставить лайк."
-                                class="card__like-button hoverable hoverable_level_medium"></button>
-                        </div>
-
-                    </article>
-
-                </li>
-                <li>
-                    <article class="card">
-                        <img src="./images/cards/yagodnoe.jpg" alt="Сидящий на пирсе на озере человек."
-                            class="card__image">
-                        <div class="card__capture-wrapper">
-                            <h2 class="card__caption">Ягодное</h2>
-                            <button type="button" aria-label="Кнопка поставить лайк."
-                                class="card__like-button hoverable hoverable_level_medium"></button>
-                        </div>
-
-                    </article>
-
-                </li>
-                <li>
-                    <article class="card">
-                        <img src="./images/cards/fiolent.jpg" alt="Скалистый морской берег." class="card__image">
-                        <div class="card__capture-wrapper">
-                            <h2 class="card__caption">Фиолент, Севастополь</h2>
-                            <button type="button" aria-label="Кнопка поставить лайк."
-                                class="card__like-button hoverable hoverable_level_medium"></button>
-                        </div>
-
-                    </article>
-
-                </li>
-                <li>
-                    <article class="card">
-                        <img src="./images/cards/foros.jpg" alt="Церковь на краю отвесной скалы." class="card__image">
-                        <div class="card__capture-wrapper">
-                            <h2 class="card__caption">Форос, Ялта</h2>
-                            <button type="button" aria-label="Кнопка поставить лайк."
-                                class="card__like-button hoverable hoverable_level_medium"></button>
-                        </div>
-
-                    </article>
-
-                </li>
             </ul>
         </section>
     </main>
@@ -123,13 +49,13 @@
         </p>
     </footer>
 
-    <div class="popup">
+    <div class="popup popup_type_edit">
         <div class="popup__container">
             <h2 class="popup__title">Редактировать профиль</h2>
-            <button class="popup__close-button hoverable" type="button"
+            <button class="popup__close-button popup__close-button_type_edit hoverable" type="button"
                 aria-label="Кнопка закрыть всплывающее окно"></button>
 
-            <form class="popup__form" name="editProfile">
+            <form class="popup__form popup__form_type_edit" name="editProfile">
                 <input type="text" class="popup__input popup__input_data_name" name="name" placeholder="Имя">
                 <input type="text" class="popup__input popup__input_data_about" name="about" placeholder="О себе">
                 <button type="submit" class="popup__submit-button hoverable hoverable_level_low">Сохранить</button>
@@ -137,6 +63,48 @@
 
         </div>
     </div>
+
+    <div class="popup popup_type_new-place">
+        <div class="popup__container">
+            <h2 class="popup__title">Новое место</h2>
+            <button class="popup__close-button popup__close-button_type_new-place hoverable" type="button"
+                aria-label="Кнопка закрыть всплывающее окно"></button>
+
+            <form class="popup__form popup__form_type_new-place" name="editProfile">
+                <input type="text" class="popup__input popup__input_data_title" name="title" placeholder="Название">
+                <input type="text" class="popup__input popup__input_data_image-url" name="imageUrl" placeholder="Ссылка на картинку">
+                <button type="submit" class="popup__submit-button hoverable hoverable_level_low">Создать</button>
+            </form>
+
+        </div>
+    </div>
+
+    <div class="popup popup_type_view">
+        <div class="popup__container popup__container_type_view">
+            <img src="" alt="" class="popup__image">
+            <p class="popup__caption"></p>
+
+            <button class="popup__close-button popup__close-button_type_view hoverable" type="button"
+                aria-label="Кнопка закрыть всплывающее окно"></button>
+        </div>
+    </div>
+
+    <template id="card-template">
+        <li class="card-list-item">
+            <article class="card">
+                <img src="./images/cards/balaklava.jpg" alt=""
+                    class="card__image">
+                <div class="card__capture-wrapper">
+                    <h2 class="card__caption"></h2>
+                    <button type="button" aria-label="Кнопка поставить лайк."
+                        class="card__like-button hoverable hoverable_level_medium"></button>
+                </div>
+
+                <img src="./images/deleteIcon.svg" alt="Кнопка удалить карточку" class="card__remove-card hoverable">
+
+            </article>
+        </li>
+    </template>
 
     <script src="./scripts/index.js" defer></script>
 </body>
