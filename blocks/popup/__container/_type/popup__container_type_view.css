@@ -1,0 +1,14 @@
+.popup__container_type_view {
+    max-width: 75vw;
+    max-height: 75vh;
+
+    width: fit-content;
+
+    padding: 0;
+
+    background-color: transparent;
+    border-radius: 0;
+
+    box-shadow: none;
+
+}
