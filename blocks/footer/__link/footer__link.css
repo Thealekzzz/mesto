@@ -7,3 +7,10 @@
     color: #545454;
     text-decoration: none;
 }
+
+@media (max-width: 500px) {
+    .footer__link {
+        font-size: 14px;
+        line-height: 17px;
+    }
+}
