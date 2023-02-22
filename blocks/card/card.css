@@ -13,11 +13,9 @@
 
     position: relative;
 
-    cursor: pointer;
-
     transition: transform .2s;
 }
 
-.card:hover {
+.card:has(.card__image:hover) {
     transform: translateY(-2px);
-}
+}   
