@@ -2,27 +2,29 @@ const editButton = document.querySelector(".profile__edit-button");
 const addButton = document.querySelector(".profile__add-button");
 
 const editPopupOverlay = document.querySelector(".popup_type_edit");
-const editPopup = document.querySelector(".popup__form_type_edit");
-const editCloseButton = document.querySelector(".popup__close-button_type_edit");
+const editProfileForm = document.forms["edit-profile-form"];
 
 const addPopupOverlay = document.querySelector(".popup_type_new-place");
-const addPopup = document.querySelector(".popup__form_type_new-place");
-const addCloseButton = document.querySelector(".popup__close-button_type_new-place");
+const addPlaceForm = document.forms["new-place-form"];
 
 const viewPopupOverlay = document.querySelector(".popup_type_view");
-const viewCloseButton = document.querySelector(".popup__close-button_type_view");
+const viewPopupImage = viewPopupOverlay.querySelector(".popup__image");
+const viewPopupCaption = viewPopupOverlay.querySelector(".popup__caption");
 
-const editInputName = editPopup.querySelector(".popup__input_data_name");
-const editInputAbout = editPopup.querySelector(".popup__input_data_about");
+const editInputName = editProfileForm.querySelector(".popup__input_data_name");
+const editInputAbout = editProfileForm.querySelector(".popup__input_data_about");
 
-const addInputTitle = addPopup.querySelector(".popup__input_data_title");
-const addInputImageUrl = addPopup.querySelector(".popup__input_data_image-url");
+const addInputTitle = addPlaceForm.querySelector(".popup__input_data_title");
+const addInputImageUrl = addPlaceForm.querySelector(".popup__input_data_image-url");
 
 const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__about");
 
 const cardsList = document.querySelector(".cards");
 const cardTemplate = document.querySelector("#card-template").content;
+const cardTemplateElement = cardTemplate.querySelector(".card-list-item");
+
+const closeButtons = document.querySelectorAll('.popup__close-button');
 
 
 const initialCards = [
@@ -53,55 +55,54 @@ const initialCards = [
 ]; 
 
 
-function onEditButtonClick() {
+function handleEditButtonClick() {
     showPopup(editPopupOverlay);
 
     editInputName.value = profileName.textContent;
     editInputAbout.value = profileAbout.textContent;
 }
 
-function onEditCloseButtonClick() {
+function handleEditCloseButtonClick() {
     closePopup(editPopupOverlay);
 }
 
-function onEditPopupSubmit(e) {
+function handleEditPopupSubmit(e) {
     e.preventDefault();
 
-    onEditCloseButtonClick();
+    handleEditCloseButtonClick();
     
     profileName.textContent = editInputName.value.trim();
     profileAbout.textContent = editInputAbout.value.trim();
 }
 
-function onAddButtonClick() {
+function handleAddButtonClick() {
     showPopup(addPopupOverlay);
 
 }
 
-function onAddCloseButtonClick() {
+function handleAddCloseButtonClick() {
     closePopup(addPopupOverlay);
 }
 
-function onAddPopupSubmit(e) {
+function handleAddPopupSubmit(e) {
     e.preventDefault();
 
-    onAddCloseButtonClick();
+    handleAddCloseButtonClick();
 
     renderCard({
         name: addInputTitle.value,
         link: addInputImageUrl.value
     });
 
-    addInputTitle.value = "";
-    addInputImageUrl.value = "";
+    e.target.reset();
     
 }
 
-function onCardClick() {
+function handleCardClick() {
     showPopup(viewPopupOverlay);
 }
 
-function onViewCloseButtonClick() {
+function handleViewCloseButtonClick() {
     closePopup(viewPopupOverlay);
 }
 
@@ -113,27 +114,25 @@ function closePopup(popupElement) {
     popupElement.classList.remove("popup_opened");
 }
 
-function renderCard(cardData) {
-    const cardItem = cardTemplate.querySelector(".card-list-item").cloneNode(true);
+function createCard(cardData) {
+    const cardItem = cardTemplateElement.cloneNode(true);
     const cardImage = cardItem.querySelector(".card__image");
 
 
-    function likeButtonClicked(e) {
+    function toggleLike(e) {
         e.stopPropagation();
         e.target.classList.toggle("card__like-button_active");
     }
 
-    function removeButtonClicked(e) {
+    function removeCard(e) {
         e.stopPropagation();
         e.target.closest(".card-list-item").remove();
     }
 
-    function onCardClicked(e) {
-        const viewPopupImage = viewPopupOverlay.querySelector(".popup__image");
-
+    function handleCardClick() {
         viewPopupImage.setAttribute("src", cardData.link);
         viewPopupImage.setAttribute("alt", `${cardData.name}, фото.`);
-        viewPopupOverlay.querySelector(".popup__caption").textContent = cardData.name;
+        viewPopupCaption.textContent = cardData.name;
 
         showPopup(viewPopupOverlay);
     }
@@ -143,42 +142,46 @@ function renderCard(cardData) {
     cardImage.setAttribute("src", cardData.link);
     cardImage.setAttribute("alt", `${cardData.name}, фото.`);
 
-    cardItem.addEventListener("click", onCardClicked);
-    cardItem.querySelector(".card__like-button").addEventListener("click", likeButtonClicked);
-    cardItem.querySelector(".card__remove-button").addEventListener("click", removeButtonClicked);
+    cardItem.addEventListener("click", handleCardClick);
+    cardItem.querySelector(".card__like-button").addEventListener("click", toggleLike);
+    cardItem.querySelector(".card__remove-button").addEventListener("click", removeCard);
 
-    cardsList.insertAdjacentElement("afterbegin", cardItem);
+
+    return cardItem;
+}
+
+function renderCard(cardData) {
+    let cardItem = createCard(cardData);
+    
+    cardsList.prepend(cardItem);
 }
 
 function renderCards(cardsData) {
-    cardsData.forEach(cardData => {
-        renderCard(cardData);
-    });
+    cardsData.forEach(renderCard);
 }
 
 
 // Открытие попапа по нажатию на кнопку edit
-editButton.addEventListener("click", onEditButtonClick)
-
-// Закрытие попапа без сохранения данных по нажатию на кнопку закрыть
-editCloseButton.addEventListener("click", onEditCloseButtonClick)
+editButton.addEventListener("click", handleEditButtonClick)
 
 // Закрытие попапа с сохранением данных по нажатию на кнопку сохранить
-editPopup.addEventListener("submit", onEditPopupSubmit)
+editProfileForm.addEventListener("submit", handleEditPopupSubmit)
 
 
 // Открытие попапа по нажатию на кнопку add
-addButton.addEventListener("click", onAddButtonClick)
-
-// Закрытие попапа без добавления места по нажатию на кнопку закрыть
-addCloseButton.addEventListener("click", onAddCloseButtonClick)
+addButton.addEventListener("click", handleAddButtonClick)
 
 // Закрытие попапа с добавлением места по нажатию на кнопку сохранить
-addPopup.addEventListener("submit", onAddPopupSubmit)
+addPlaceForm.addEventListener("submit", handleAddPopupSubmit)
 
 
-// Закрытие попапа просмотра фото
-viewCloseButton.addEventListener("click", onViewCloseButtonClick)
+// Слушатели на все кнопки закрытия
+closeButtons.forEach(closeButton => {
+    const popup = closeButton.closest('.popup');
+
+    closeButton.addEventListener('click', () => closePopup(popup));
+})
 
 
 renderCards(initialCards);
+
