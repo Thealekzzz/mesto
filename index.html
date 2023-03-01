@@ -58,12 +58,12 @@
             <form class="popup__form popup__form_type_edit" name="edit-profile-form">
                 <label class="form__field">
                     <input required minlength="2" maxlength="40" type="text" class="popup__input popup__input_data_name" id="input-name" name="name" placeholder="Имя">
-                    <p class="popup__input-error input-name-error"></p>
+                    <span class="popup__input-error input-name-error"></span>
                 </label>
 
                 <label class="form__field">
                     <input required minlength="2" maxlength="200" type="text" class="popup__input popup__input_data_about" id="input-about" name="about" placeholder="О себе">
-                    <p class="popup__input-error input-about-error"></p>
+                    <span class="popup__input-error input-about-error"></span>
                 </label>
 
                 <button type="submit" class="popup__submit-button hoverable hoverable_level_low">Сохранить</button>
@@ -81,13 +81,13 @@
             <form class="popup__form popup__form_type_new-place" name="new-place-form">
                 <label class="form__field">
                     <input required minlength="2" maxlength="30" type="text" class="popup__input popup__input_data_title" id="input-title" name="title" placeholder="Название">
-                    <p class="popup__input-error input-title-error">Вы пропустили это поле.</p>
+                    <span class="popup__input-error input-title-error">Вы пропустили это поле.</span>
                     
                 </label>
                 
                 <label class="form__field">
                     <input required type="url" class="popup__input popup__input_data_image-url" id="input-url" name="imageUrl" placeholder="Ссылка на картинку">
-                    <p class="popup__input-error input-url-error"></p>
+                    <span class="popup__input-error input-url-error"></span>
                 </label>
                 <button type="submit" class="popup__submit-button hoverable hoverable_level_low">Создать</button>
             </form>
