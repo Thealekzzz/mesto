@@ -56,8 +56,16 @@
                 aria-label="Кнопка закрыть всплывающее окно"></button>
 
             <form class="popup__form popup__form_type_edit" name="edit-profile-form">
-                <input required minlength="2" maxlength="40" type="text" class="popup__input popup__input_data_name" name="name" placeholder="Имя">
-                <input required minlength="2" maxlength="200" type="text" class="popup__input popup__input_data_about" name="about" placeholder="О себе">
+                <label class="form__field">
+                    <input required minlength="2" maxlength="40" type="text" class="popup__input popup__input_data_name" id="input-name" name="name" placeholder="Имя">
+                    <p class="popup__input-error input-name-error"></p>
+                </label>
+
+                <label class="form__field">
+                    <input required minlength="2" maxlength="200" type="text" class="popup__input popup__input_data_about" id="input-about" name="about" placeholder="О себе">
+                    <p class="popup__input-error input-about-error"></p>
+                </label>
+
                 <button type="submit" class="popup__submit-button hoverable hoverable_level_low">Сохранить</button>
             </form>
 
@@ -71,9 +79,16 @@
                 aria-label="Кнопка закрыть всплывающее окно"></button>
 
             <form class="popup__form popup__form_type_new-place" name="new-place-form">
-                <input required minlength="2" maxlength="30" type="text" class="popup__input popup__input_data_title" name="title" placeholder="Название">
+                <label class="form__field">
+                    <input required minlength="2" maxlength="30" type="text" class="popup__input popup__input_data_title" id="input-title" name="title" placeholder="Название">
+                    <p class="popup__input-error input-title-error">Вы пропустили это поле.</p>
+                    
+                </label>
                 
-                <input required type="url" class="popup__input popup__input_data_image-url" name="imageUrl" placeholder="Ссылка на картинку">
+                <label class="form__field">
+                    <input required type="url" class="popup__input popup__input_data_image-url" id="input-url" name="imageUrl" placeholder="Ссылка на картинку">
+                    <p class="popup__input-error input-url-error"></p>
+                </label>
                 <button type="submit" class="popup__submit-button hoverable hoverable_level_low">Создать</button>
             </form>
 
@@ -106,6 +121,7 @@
         </li>
     </template>
 
+    <script src="./scripts/validation.js" defer></script>
     <script src="./scripts/index.js" defer></script>
 </body>
 

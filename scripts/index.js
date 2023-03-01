@@ -25,6 +25,7 @@ const cardTemplate = document.querySelector("#card-template").content;
 const cardTemplateElement = cardTemplate.querySelector(".card-list-item");
 
 const closeButtons = document.querySelectorAll('.popup__close-button');
+const popups = document.querySelectorAll(".popup");
 
 
 const initialCards = [
@@ -54,12 +55,21 @@ const initialCards = [
     }
 ]; 
 
+const validationOptions = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__submit-button',
+    inactiveButtonClass: 'popup__submit-button_disabled',
+    inputErrorClass: 'popup__input_invalid',
+    errorClass: 'popup__input-error_visible'
+  }
+
 
 function handleEditButtonClick() {
-    showPopup(editPopup);
-
     editInputName.value = profileName.textContent;
     editInputAbout.value = profileAbout.textContent;
+    
+    showPopup(editPopup);
 }
 
 function closeProfilePopup() {
@@ -103,11 +113,25 @@ function handleViewCloseButtonClick() {
 }
 
 function showPopup(popupElement) {
+    // Открытие попапа
     popupElement.classList.add("popup_opened");
+
+    // Повторная валидация при открытии
+    checkPopupValidation(validationOptions, popupElement);
+
+    // Задание слушателя нажатия кнопок клавиатуры
+    window.addEventListener("keydown", function handleEscPress(evt) {
+        if (evt.key === "Escape") {
+            closePopup(popupElement);
+            window.removeEventListener("keydown", handleEscPress);
+        }
+
+    });
 }
 
 function closePopup(popupElement) {
     popupElement.classList.remove("popup_opened");
+    
 }
 
 function createCard(cardData) {
@@ -156,17 +180,17 @@ function renderCards(cardsData) {
 
 
 // Открытие попапа по нажатию на кнопку edit
-editButton.addEventListener("click", handleEditButtonClick)
+editButton.addEventListener("click", handleEditButtonClick);
 
 // Закрытие попапа с сохранением данных по нажатию на кнопку сохранить
-editProfileForm.addEventListener("submit", handleEditPopupSubmit)
+editProfileForm.addEventListener("submit", handleEditPopupSubmit);
 
 
 // Открытие попапа по нажатию на кнопку add
-addButton.addEventListener("click", handleAddButtonClick)
+addButton.addEventListener("click", handleAddButtonClick);
 
 // Закрытие попапа с добавлением места по нажатию на кнопку сохранить
-addPlaceForm.addEventListener("submit", handleAddPopupSubmit)
+addPlaceForm.addEventListener("submit", handleAddPopupSubmit);
 
 
 // Слушатели на все кнопки закрытия
@@ -176,6 +200,24 @@ closeButtons.forEach(closeButton => {
     closeButton.addEventListener('click', () => closePopup(popup));
 })
 
+// Слушатели на нажатие overlay попапов
+popups.forEach(popup => {
+    popup.addEventListener("click", evt => {
+        if (evt.target.classList.contains("popup")) {
+            closePopup(popup);
+
+        }
+    });
+});
+
+// Слушатель нажатия Esc для закрытия всех попапов
+// window.addEventListener("keydown", evt => {
+//     if (evt.key === "Escape") {
+//         popups.forEach(popup => closePopup(popup));
+//     }
+// })
+
+
 
 renderCards(initialCards);
-
+enableValidation(validationOptions); 
