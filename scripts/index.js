@@ -1,21 +1,21 @@
-const editButton = document.querySelector(".profile__edit-button");
-const addButton = document.querySelector(".profile__add-button");
+const profileOpenButton = document.querySelector(".profile__edit-button");
+const placeAddButton = document.querySelector(".profile__add-button");
 
-const editPopup = document.querySelector(".popup_type_edit");
-const editProfileForm = document.forms["edit-profile-form"];
+const profileEditPopup = document.querySelector(".popup_type_edit");
+const profileEditForm = document.forms["edit-profile-form"];
 
-const addPopup = document.querySelector(".popup_type_new-place");
-const addPlaceForm = document.forms["new-place-form"];
+const placeAddPopup = document.querySelector(".popup_type_new-place");
+const placeAddForm = document.forms["new-place-form"];
 
-const viewPopup = document.querySelector(".popup_type_view");
-const viewPopupImage = viewPopup.querySelector(".popup__image");
-const viewPopupCaption = viewPopup.querySelector(".popup__caption");
+const placeViewPopup = document.querySelector(".popup_type_view");
+const placeViewPopupImage = placeViewPopup.querySelector(".popup__image");
+const placeViewPopupCaption = placeViewPopup.querySelector(".popup__caption");
 
-const editInputName = editProfileForm.querySelector(".popup__input_data_name");
-const editInputAbout = editProfileForm.querySelector(".popup__input_data_about");
+const inputEditName = profileEditForm.querySelector(".popup__input_data_name");
+const inputEditAbout = profileEditForm.querySelector(".popup__input_data_about");
 
-const addInputTitle = addPlaceForm.querySelector(".popup__input_data_title");
-const addInputImageUrl = addPlaceForm.querySelector(".popup__input_data_image-url");
+const inputPlaceAddTitle = placeAddForm.querySelector(".popup__input_data_title");
+const inputPlaceAddImageUrl = placeAddForm.querySelector(".popup__input_data_image-url");
 
 const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__about");
@@ -28,52 +28,15 @@ const closeButtons = document.querySelectorAll('.popup__close-button');
 const popups = document.querySelectorAll(".popup");
 
 
-const initialCards = [
-    {
-      name: 'Балаклава',
-      link: './images/cards/balaklava.jpg'
-    },
-    {
-      name: 'Мангуп-Кале',
-      link: './images/cards/mangup.jpg'
-    },
-    {
-      name: 'Кача',
-      link: './images/cards/kacha.jpg'
-    },
-    {
-      name: 'Ягодное',
-      link: './images/cards/yagodnoe.jpg'
-    },
-    {
-      name: 'Фиолент, Севастополь',
-      link: './images/cards/fiolent.jpg'
-    },
-    {
-      name: 'Форос, Ялта',
-      link: './images/cards/foros.jpg'
-    }
-]; 
-
-const validationOptions = {
-    formSelector: '.popup__form',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__submit-button',
-    inactiveButtonClass: 'popup__submit-button_disabled',
-    inputErrorClass: 'popup__input_invalid',
-    errorClass: 'popup__input-error_visible'
-  }
-
-
 function handleEditButtonClick() {
-    editInputName.value = profileName.textContent;
-    editInputAbout.value = profileAbout.textContent;
+    inputEditName.value = profileName.textContent;
+    inputEditAbout.value = profileAbout.textContent;
     
-    showPopup(editPopup);
+    showPopup(profileEditPopup);
 }
 
 function closeProfilePopup() {
-    closePopup(editPopup);
+    closePopup(profileEditPopup);
 }
 
 function handleEditPopupSubmit(e) {
@@ -81,17 +44,17 @@ function handleEditPopupSubmit(e) {
 
     closeProfilePopup();
     
-    profileName.textContent = editInputName.value.trim();
-    profileAbout.textContent = editInputAbout.value.trim();
+    profileName.textContent = inputEditName.value.trim();
+    profileAbout.textContent = inputEditAbout.value.trim();
 }
 
 function handleAddButtonClick() {
-    showPopup(addPopup);
+    showPopup(placeAddPopup);
 
 }
 
 function closeCardPopup() {
-    closePopup(addPopup);
+    closePopup(placeAddPopup);
 }
 
 function handleAddPopupSubmit(e) {
@@ -100,8 +63,8 @@ function handleAddPopupSubmit(e) {
     closeCardPopup();
 
     renderCard({
-        name: addInputTitle.value,
-        link: addInputImageUrl.value
+        name: inputPlaceAddTitle.value,
+        link: inputPlaceAddImageUrl.value
     });
 
     e.target.reset();
@@ -109,7 +72,7 @@ function handleAddPopupSubmit(e) {
 }
 
 function handleViewCloseButtonClick() {
-    closePopup(viewPopup);
+    closePopup(placeViewPopup);
 }
 
 function showPopup(popupElement) {
@@ -120,47 +83,42 @@ function showPopup(popupElement) {
     checkPopupValidation(validationOptions, popupElement);
 
     // Задание слушателя нажатия кнопок клавиатуры
-    window.addEventListener("keydown", function handleEscPress(evt) {
-        if (evt.key === "Escape") {
-            closePopup(popupElement);
-            window.removeEventListener("keydown", handleEscPress);
-        }
-
-    });
+    window.addEventListener("keydown", closePopupByEscapeKey);
 }
 
 function closePopup(popupElement) {
     popupElement.classList.remove("popup_opened");
+
+    // Удаление слушателя нажатия кнопок клавиатуры
+    window.removeEventListener("keydown", closePopupByEscapeKey);
     
+}
+
+function toggleLike(e) {
+    e.target.classList.toggle("card__like-button_active");
+}
+
+function removeCard(e) {
+    e.target.closest(".card-list-item").remove();
+}
+
+function handleCardClick(cardData) {
+    placeViewPopupImage.setAttribute("src", cardData.link);
+    placeViewPopupImage.setAttribute("alt", `${cardData.name}, фото.`);
+    placeViewPopupCaption.textContent = cardData.name;
+
+    showPopup(placeViewPopup);
 }
 
 function createCard(cardData) {
     const cardItem = cardTemplateElement.cloneNode(true);
     const cardImage = cardItem.querySelector(".card__image");
 
-
-    function toggleLike(e) {
-        e.target.classList.toggle("card__like-button_active");
-    }
-
-    function removeCard(e) {
-        e.target.closest(".card-list-item").remove();
-    }
-
-    function handleCardClick() {
-        viewPopupImage.setAttribute("src", cardData.link);
-        viewPopupImage.setAttribute("alt", `${cardData.name}, фото.`);
-        viewPopupCaption.textContent = cardData.name;
-
-        showPopup(viewPopup);
-    }
-
-
     cardItem.querySelector(".card__caption").textContent = cardData.name;
     cardImage.setAttribute("src", cardData.link);
     cardImage.setAttribute("alt", `${cardData.name}, фото.`);
 
-    cardImage.addEventListener("click", handleCardClick);
+    cardImage.addEventListener("click", () => handleCardClick(cardData));
     cardItem.querySelector(".card__like-button").addEventListener("click", toggleLike);
     cardItem.querySelector(".card__remove-button").addEventListener("click", removeCard);
 
@@ -178,19 +136,26 @@ function renderCards(cardsData) {
     cardsData.forEach(renderCard);
 }
 
+function closePopupByEscapeKey(evt) {
+    if (evt.key === "Escape") {
+        const openedPopup = document.querySelector(".popup_opened");
+        closePopup(openedPopup);
+    }
+}
+
 
 // Открытие попапа по нажатию на кнопку edit
-editButton.addEventListener("click", handleEditButtonClick);
+profileOpenButton.addEventListener("click", handleEditButtonClick);
 
 // Закрытие попапа с сохранением данных по нажатию на кнопку сохранить
-editProfileForm.addEventListener("submit", handleEditPopupSubmit);
+profileEditForm.addEventListener("submit", handleEditPopupSubmit);
 
 
 // Открытие попапа по нажатию на кнопку add
-addButton.addEventListener("click", handleAddButtonClick);
+placeAddButton.addEventListener("click", handleAddButtonClick);
 
 // Закрытие попапа с добавлением места по нажатию на кнопку сохранить
-addPlaceForm.addEventListener("submit", handleAddPopupSubmit);
+placeAddForm.addEventListener("submit", handleAddPopupSubmit);
 
 
 // Слушатели на все кнопки закрытия
@@ -202,21 +167,13 @@ closeButtons.forEach(closeButton => {
 
 // Слушатели на нажатие overlay попапов
 popups.forEach(popup => {
-    popup.addEventListener("click", evt => {
+    popup.addEventListener("mousedown", evt => {
         if (evt.target.classList.contains("popup")) {
             closePopup(popup);
 
         }
     });
 });
-
-// Слушатель нажатия Esc для закрытия всех попапов
-// window.addEventListener("keydown", evt => {
-//     if (evt.key === "Escape") {
-//         popups.forEach(popup => closePopup(popup));
-//     }
-// })
-
 
 
 renderCards(initialCards);
