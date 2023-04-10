@@ -1,9 +1,16 @@
 import Card from "../Card.js";
 import { cardsList } from "../consts.js";
 
-export function renderCard(cardData) {
+function createCard(cardData) {
     const card = new Card(cardData, "#card-template");
     const cardItem = card.createCard();
+
+    return cardItem;
+
+}
+
+export function renderCard(cardData) {
+    const cardItem = createCard(cardData);
     
     cardsList.prepend(cardItem);
 }

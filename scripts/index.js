@@ -1,6 +1,6 @@
 import { initialCards, validationOptions } from "./data.js";
 import { enableValidation } from "./utils/validationUtils.js";
-import { showPopup, closePopup, handleEditPopupSubmit, handleAddPopupSubmit } from "./utils/popupUtils.js";
+import { closePopup, handleEditPopupSubmit, handleAddPopupSubmit, showPopupAndCheckValidation } from "./utils/popupUtils.js";
 import { renderCards } from "./utils/cardUtils.js";
 import { profileOpenButton, placeAddButton, profileEditPopup, profileEditForm, 
     placeAddPopup, placeAddForm, inputEditName, inputEditAbout, profileName, 
@@ -11,11 +11,11 @@ function handleEditButtonClick() {
     inputEditName.value = profileName.textContent;
     inputEditAbout.value = profileAbout.textContent;
     
-    showPopup(profileEditPopup);
+    showPopupAndCheckValidation(profileEditPopup);
 }
 
 function handleAddButtonClick() {
-    showPopup(placeAddPopup);
+    showPopupAndCheckValidation(placeAddPopup);
 
 }
 

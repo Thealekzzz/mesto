@@ -1,8 +1,5 @@
 import { showPopup } from "./utils/popupUtils.js";
-
-const placeViewPopup = document.querySelector(".popup_type_view");
-const placeViewPopupImage = placeViewPopup.querySelector(".popup__image");
-const placeViewPopupCaption = placeViewPopup.querySelector(".popup__caption");
+import { placeViewPopup, placeViewPopupImage, placeViewPopupCaption } from "./consts.js";
 
 export default class Card {
     constructor(cardData, selector) {
@@ -12,12 +9,13 @@ export default class Card {
 
     }
 
-    _toggleLike(e) {
-        e.target.classList.toggle("card__like-button_active");
+    _toggleLike() {
+        this._cardLikeButton.classList.toggle("card__like-button_active");
     }
     
-    _removeCard(e) {
-        e.target.closest(".card-list-item").remove();
+    _removeCard() {
+        this._cardRemoveButton.closest(".card-list-item").remove();
+        this._cardRemoveButton = null;
     }
     
     _handleCardClick() {
@@ -31,14 +29,17 @@ export default class Card {
     createCard() {
         const cardItem = this._element.cloneNode(true);
         const cardImage = cardItem.querySelector(".card__image");
+
+        this._cardLikeButton = cardItem.querySelector(".card__like-button");
+        this._cardRemoveButton = cardItem.querySelector(".card__remove-button");
     
         cardItem.querySelector(".card__caption").textContent = this._cardData.name;
         cardImage.setAttribute("src", this._cardData.link);
         cardImage.setAttribute("alt", `${this._cardData.name}, фото.`);
     
         cardImage.addEventListener("click", () => this._handleCardClick());
-        cardItem.querySelector(".card__like-button").addEventListener("click", this._toggleLike);
-        cardItem.querySelector(".card__remove-button").addEventListener("click", this._removeCard);
+        cardItem.querySelector(".card__like-button").addEventListener("click", () => this._toggleLike());
+        cardItem.querySelector(".card__remove-button").addEventListener("click", () => this._removeCard());
     
     
         return cardItem;

@@ -1,19 +1,26 @@
 import { validationOptions } from "../data.js";
-import { checkPopupValidation } from "./validationUtils.js";
 import { renderCard } from "./cardUtils.js";
-
 import { placeAddPopup, inputPlaceAddTitle, inputPlaceAddImageUrl, profileEditPopup, 
     profileName, profileAbout, inputEditName, inputEditAbout } from "../consts.js";
+import FormValidator from "../FormValidator.js";
 
 export function showPopup(popupElement) {
     // Открытие попапа
     popupElement.classList.add("popup_opened");
 
-    // Повторная валидация при открытии
-    checkPopupValidation(validationOptions, popupElement);
-
     // Задание слушателя нажатия кнопок клавиатуры
     window.addEventListener("keydown", closePopupByEscapeKey);
+}
+
+
+export function showPopupAndCheckValidation(popupElement) {
+    const formElement = popupElement.querySelector(validationOptions.formSelector);
+    const buttonElement = popupElement.querySelector(validationOptions.submitButtonSelector);
+
+    // Повторная валидация при открытии
+    FormValidator.toggleButtonState(validationOptions, formElement, buttonElement);
+    showPopup(popupElement);
+
 }
 
 
