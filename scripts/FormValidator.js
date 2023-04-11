@@ -10,11 +10,15 @@ export default class FormValidator {
         this._setEventListeners();
     }
 
+    validateForm() {
+        this._toggleButtonState();
+    }
+
     _setEventListeners() {    
         this._inputList.forEach(inputElement => {
             inputElement.addEventListener("input", () => {
                 this._checkInputValidity(inputElement);
-                FormValidator.toggleButtonState(this._validationOptions, this._formElement, this._buttonElement);
+                this._toggleButtonState();
             });
         });
     }
@@ -45,19 +49,18 @@ export default class FormValidator {
         
     }
 
-    static toggleButtonState(options, formElement, buttonElement) {
-        const inputList = Array.from(formElement.querySelectorAll(options.inputSelector));
-        const isFormValid = inputList.every(inputElement => inputElement.validity.valid);
+    _toggleButtonState() {
+        const isFormValid = this._inputList.every(inputElement => inputElement.validity.valid);
 
         if (isFormValid) {
-            buttonElement.classList.remove(options.inactiveButtonClass);
-            buttonElement.removeAttribute("disabled");
-            buttonElement.classList.add("hoverable");
+            this._buttonElement.classList.remove(this._validationOptions.inactiveButtonClass);
+            this._buttonElement.removeAttribute("disabled");
+            this._buttonElement.classList.add("hoverable");
 
         } else {
-            buttonElement.classList.add(options.inactiveButtonClass);
-            buttonElement.setAttribute("disabled", true);
-            buttonElement.classList.remove("hoverable");
+            this._buttonElement.classList.add(this._validationOptions.inactiveButtonClass);
+            this._buttonElement.setAttribute("disabled", true);
+            this._buttonElement.classList.remove("hoverable");
 
         }
     }

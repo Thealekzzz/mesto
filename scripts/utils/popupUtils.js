@@ -1,9 +1,8 @@
-import { validationOptions } from "../data.js";
 import { renderCard } from "./cardUtils.js";
 import { placeAddPopup, inputPlaceAddTitle, inputPlaceAddImageUrl, profileEditPopup, 
     profileName, profileAbout, inputEditName, inputEditAbout } from "../consts.js";
-import FormValidator from "../FormValidator.js";
 
+    
 export function showPopup(popupElement) {
     // Открытие попапа
     popupElement.classList.add("popup_opened");
@@ -13,12 +12,10 @@ export function showPopup(popupElement) {
 }
 
 
-export function showPopupAndCheckValidation(popupElement) {
-    const formElement = popupElement.querySelector(validationOptions.formSelector);
-    const buttonElement = popupElement.querySelector(validationOptions.submitButtonSelector);
-
+export function showPopupAndCheckValidation(popupElement, formValidator) {
     // Повторная валидация при открытии
-    FormValidator.toggleButtonState(validationOptions, formElement, buttonElement);
+    formValidator.validateForm();
+
     showPopup(popupElement);
 
 }

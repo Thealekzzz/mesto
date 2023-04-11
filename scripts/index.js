@@ -11,11 +11,11 @@ function handleEditButtonClick() {
     inputEditName.value = profileName.textContent;
     inputEditAbout.value = profileAbout.textContent;
     
-    showPopupAndCheckValidation(profileEditPopup);
+    showPopupAndCheckValidation(profileEditPopup, formEditProfileValidator);
 }
 
 function handleAddButtonClick() {
-    showPopupAndCheckValidation(placeAddPopup);
+    showPopupAndCheckValidation(placeAddPopup, formNewPlaceValidator);
 
 }
 
@@ -52,4 +52,6 @@ popups.forEach(popup => {
 
 
 renderCards(initialCards);
-enableValidation(validationOptions); 
+const [formEditProfileValidator, formNewPlaceValidator] = enableValidation(validationOptions);
+
+

@@ -1,13 +1,19 @@
 import FormValidator from "../FormValidator.js";
-import { validationOptions } from "../data.js";
 
 export function enableValidation(options) {
-    const formList = Array.from(document.querySelectorAll(options.formSelector));
+    const formElements = [
+        document.querySelector(".popup__form_type_edit"),
+        document.querySelector(".popup__form_type_new-place"),
+    ];
 
-    // Для каждой формы создаю экземпляр класса FormValidator и запускаю enableValidation
-    formList.forEach(formElement => {
-        const formValidation = new FormValidator(validationOptions, formElement);
-        formValidation.enableValidation();
-    });
+    // Для каждой формы создаю экземпляр класса FormValidator
+    const formValidators = formElements.map(formElement => new FormValidator(options, formElement));
+
+    // Для каждого экземпляра класса FormValidator запускаю enableValidation
+    formValidators.forEach(formValidator => {
+        formValidator.enableValidation();
+    })
+
+    return formValidators;
 }
 
