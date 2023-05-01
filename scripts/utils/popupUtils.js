@@ -1,69 +1,23 @@
 import { renderCard } from "./cardUtils.js";
-import { placeAddPopup, inputPlaceAddTitle, inputPlaceAddImageUrl, profileEditPopup, 
-    profileName, profileAbout, inputEditName, inputEditAbout } from "../consts.js";
+import { editPopup, addPlacePopup, userInfo } from "../consts.js";
 
-    
-export function showPopup(popupElement) {
-    // Открытие попапа
-    popupElement.classList.add("popup_opened");
-
-    // Задание слушателя нажатия кнопок клавиатуры
-    window.addEventListener("keydown", closePopupByEscapeKey);
-}
-
-
-export function showPopupAndCheckValidation(popupElement, formValidator) {
-    // Повторная валидация при открытии
-    formValidator.validateForm();
-
-    showPopup(popupElement);
-
-}
-
-
-export function closePopup(popupElement) {
-    popupElement.classList.remove("popup_opened");
-
-    // Удаление слушателя нажатия кнопок клавиатуры
-    window.removeEventListener("keydown", closePopupByEscapeKey);
-    
-}
-
-
-export function closePopupByEscapeKey(evt) {
-    if (evt.key === "Escape") {
-        const openedPopup = document.querySelector(".popup_opened");
-        closePopup(openedPopup);
-    }
-}
-
-export function closeProfilePopup() {
-    closePopup(profileEditPopup);
-}
 
 export function handleEditPopupSubmit(e) {
     e.preventDefault();
 
-    closeProfilePopup();
-    
-    profileName.textContent = inputEditName.value.trim();
-    profileAbout.textContent = inputEditAbout.value.trim();
-}
+    userInfo.setUserInfo(editPopup.getInputValues());
 
-export function closeCardPopup() {
-    closePopup(placeAddPopup);
+    this.close();
 }
 
 export function handleAddPopupSubmit(e) {
     e.preventDefault();
 
-    closeCardPopup();
-
-    renderCard({
-        name: inputPlaceAddTitle.value,
-        link: inputPlaceAddImageUrl.value
-    });
-
-    e.target.reset();
+    renderCard(addPlacePopup.getInputValues());
     
+    this.close();    
+}
+
+export function handleOpenEditPopup() {
+    this.fillFormWithData(userInfo.getUserInfo())
 }

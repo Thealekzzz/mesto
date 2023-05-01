@@ -1,8 +1,8 @@
-import Card from "../Card.js";
-import { cardsList } from "../consts.js";
+import Card from "../components/Card.js";
+import { cardsList, viewPopup } from "../consts.js";
 
 function createCard(cardData) {
-    const card = new Card(cardData, "#card-template");
+    const card = new Card(cardData, "#card-template", handleCardClick);
     const cardItem = card.createCard();
 
     return cardItem;
@@ -17,4 +17,8 @@ export function renderCard(cardData) {
 
 export function renderCards(cardsData) {
     cardsData.forEach(renderCard);
+}
+
+function handleCardClick() {
+    viewPopup.open({ link: this._cardData.link, cardName: this._cardData.name} );
 }

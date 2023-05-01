@@ -6,24 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="shortcut icon" href="./images/favicon.svg" type="image/x-icon">
-
-    <link rel="stylesheet" href="./pages/index.css">
-
+    <link rel="shortcut icon" href="<%=require('./images/favicon.svg')%>" type="image/x-icon">
     <title lang="en">Mesto Russia</title>
 </head>
 
 <body class="page">
     <header class="header">
-        <img src="./images/logo.svg" alt="Место, логотип." class="header__logo">
+        <img src="<%=require('./images/logo.svg')%>" alt="Место, логотип." class="header__logo">
     </header>
     <main>
         <section class="profile">
             <div class="profile__info-wrapper">
-                <img src="./images/avatar.jpg" alt="Фото профиля" class="profile__avatar">
+                <img src="<%=require('./images/avatar.jpg')%>" alt="Фото профиля" class="profile__avatar">
                 <div class="profile__info">
                     <div class="profile__name-wrapper">
-                        <h1 class="profile__name">Максим</h1>
+                        <h1 class="profile__name">Алексей</h1>
                         <button class="profile__edit-button hoverable" type="button"
                             aria-label="Редактировать профиль"></button>
                     </div>
@@ -80,13 +77,13 @@
 
             <form class="popup__form popup__form_type_new-place" name="new-place-form">
                 <label>
-                    <input required minlength="2" maxlength="30" type="text" class="popup__input popup__input_data_title" id="input-title" name="title" placeholder="Название">
+                    <input required minlength="2" maxlength="30" type="text" class="popup__input popup__input_data_title" id="input-title" name="name" placeholder="Название">
                     <span class="popup__input-error input-title-error"></span>
                     
                 </label>
                 
                 <label>
-                    <input required type="url" class="popup__input popup__input_data_image-url" id="input-url" name="imageUrl" placeholder="Ссылка на картинку">
+                    <input required type="url" class="popup__input popup__input_data_image-url" id="input-url" name="link" placeholder="Ссылка на картинку">
                     <span class="popup__input-error input-url-error"></span>
                 </label>
                 <button type="submit" class="popup__submit-button hoverable hoverable_level_low">Создать</button>
@@ -115,13 +112,11 @@
                         class="card__like-button hoverable hoverable_level_medium"></button>
                 </div>
 
-                <img src="./images/deleteIcon.svg" alt="Кнопка удалить карточку" class="card__remove-button hoverable">
+                <img src="<%=require('./images/deleteIcon.svg')%>" alt="Кнопка удалить карточку" class="card__remove-button hoverable">
 
             </article>
         </li>
     </template>
-
-    <script src="./scripts/index.js" type="module"></script>
 </body>
 
 </html>

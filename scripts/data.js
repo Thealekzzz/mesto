@@ -1,27 +1,34 @@
+import p1 from "../images/cards/balaklava.jpg";
+import p2 from "../images/cards/mangup.jpg";
+import p3 from "../images/cards/kacha.jpg";
+import p4 from "../images/cards/yagodnoe.jpg";
+import p5 from "../images/cards/fiolent.jpg";
+import p6 from "../images/cards/foros.jpg";
+
 export const initialCards = [
   {
     name: 'Балаклава',
-    link: './images/cards/balaklava.jpg'
+    link: p1
   },
   {
     name: 'Мангуп-Кале',
-    link: './images/cards/mangup.jpg'
+    link: p2
   },
   {
     name: 'Кача',
-    link: './images/cards/kacha.jpg'
+    link: p3
   },
   {
     name: 'Ягодное',
-    link: './images/cards/yagodnoe.jpg'
+    link: p4
   },
   {
     name: 'Фиолент, Севастополь',
-    link: './images/cards/fiolent.jpg'
+    link: p5
   },
   {
     name: 'Форос, Ялта',
-    link: './images/cards/foros.jpg'
+    link: p6
   }
 ]; 
 
