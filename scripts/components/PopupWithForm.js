@@ -1,9 +1,7 @@
 import Popup from "./Popup.js";
-import FormValidator from "./FormValidator.js";
-import { validationOptions } from "../data.js";
 
 export default class PopupWithForm extends Popup {
-    constructor(selector, handleSubmit, handleOpen) {
+    constructor(selector, { handleSubmit, handleOpen, validator }) {
         super(selector);
 
         this._handleSubmit = handleSubmit;
@@ -11,8 +9,7 @@ export default class PopupWithForm extends Popup {
         this._formElement = this._popupElement.querySelector(".popup__form");
         this._submitButton = this._popupElement.querySelector(".popup__submit-button");
 
-        this._validator = new FormValidator(validationOptions, this._formElement);
-        this._validator.enableValidation();
+        this._validator = validator;
     }
 
     open() {
@@ -21,12 +18,12 @@ export default class PopupWithForm extends Popup {
         // Если была передана функция, обрабатывающая открытие попапа - запускаю ее
         this._handleOpen?.();
 
-        this._validator.validateForm();
+        this._validator.toggleButtonState();
     }
 
     setEventListeners() {
         super.setEventListeners();
-        this._formElement.addEventListener("submit", (e) => this._handleSubmit(e));
+        this._formElement.addEventListener("submit", (e) => this._handleSubmit(e, this._getInputValues()));
     }
 
     close() {
@@ -40,7 +37,7 @@ export default class PopupWithForm extends Popup {
         }
     }
 
-    getInputValues() {
+    _getInputValues() {
         return Array.from(this._formElement.querySelectorAll(".popup__input"))
         .reduce((acc, inputElement) => {
             acc[inputElement.name] = inputElement.value;

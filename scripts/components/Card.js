@@ -36,7 +36,7 @@ export default class Card {
     
         cardImageElement.addEventListener("click", () => this._handleCardClick());
         this._cardElement.querySelector(".card__like-button").addEventListener("click", () => this._toggleLike());
-        // this._cardElement.querySelector(".card__remove-button").addEventListener("click", () => this._removeCard());
+        this._cardElement.querySelector(".card__remove-button").addEventListener("click", () => this._removeCard());
     
     
         return this._cardElement;
