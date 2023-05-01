@@ -2,20 +2,21 @@ export default class Popup {
     constructor(selector) {
         this._popupElement = document.querySelector(selector);
         this._closeButtonElement = this._popupElement.querySelector(".popup__close-button");
+        
     }
 
     open() {
         this._popupElement.classList.add("popup_opened");
     
         // Задание слушателя нажатия кнопок клавиатуры
-        window.addEventListener("keydown", this._handleEscClose.bind(this));
+        window.addEventListener("keydown", this._handleEscClose);
     }
 
     close() {
         this._popupElement.classList.remove("popup_opened");
     
         // Удаление слушателя нажатия кнопок клавиатуры
-        window.removeEventListener("keydown", this._handleEscClose.bind(this));
+        window.removeEventListener("keydown", this._handleEscClose);
         
     }
 
@@ -30,7 +31,7 @@ export default class Popup {
         });
     }
 
-    _handleEscClose(e) {
+    _handleEscClose = e => {
         console.log(this, e)
         if (e.key === "Escape") {
             this.close();
