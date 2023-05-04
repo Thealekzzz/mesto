@@ -14,4 +14,8 @@ export default class Section {
     setItem(item) {
         this._container.prepend(item);
     }
+
+    updateItems(items) {
+        this._items = items;
+    }
 }

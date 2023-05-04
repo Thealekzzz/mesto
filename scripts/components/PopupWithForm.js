@@ -8,11 +8,13 @@ export default class PopupWithForm extends Popup {
         this._handleOpen = handleOpen;
         this._formElement = this._popupElement.querySelector(".popup__form");
         this._submitButton = this._popupElement.querySelector(".popup__submit-button");
+        this._buttonText = this._submitButton.textContent;
 
         this._validator = validator;
     }
 
     open() {
+        this.setLoading(false);
         super.open();
         
         // Если была передана функция, обрабатывающая открытие попапа - запускаю ее
@@ -23,7 +25,7 @@ export default class PopupWithForm extends Popup {
 
     setEventListeners() {
         super.setEventListeners();
-        this._formElement.addEventListener("submit", (e) => this._handleSubmit(e, this._getInputValues()));
+        this._formElement.addEventListener("submit", this._handleSubmit.bind(this));
     }
 
     close() {
@@ -33,7 +35,16 @@ export default class PopupWithForm extends Popup {
 
     fillFormWithData(data) {
         for (let key in data) {
+            if (key === "avatar") continue;
             this._formElement[key].value = data[key];
+        }
+    }
+
+    setLoading(isLoading) {
+        if (isLoading) {
+            this._submitButton.textContent = "Сохранение...";
+        } else {
+            this._submitButton.textContent = this._buttonText;
         }
     }
 

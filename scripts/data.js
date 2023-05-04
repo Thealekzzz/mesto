@@ -12,7 +12,7 @@ export const initialCards = [
   },
   {
     name: 'Мангуп-Кале',
-    link: p2
+    link: "https://sun9-26.userapi.com/impf/c845218/v845218046/d27ec/15xKUnwEvuw.jpg?size=2560x1440&quality=96&sign=2ba9ec4d9c11d966e20963a17bfee862&type=album"
   },
   {
     name: 'Кача',
@@ -20,15 +20,15 @@ export const initialCards = [
   },
   {
     name: 'Ягодное',
-    link: p4
+    link: "https://sun9-63.userapi.com/impf/c845420/v845420048/1fa772/jz2Wh_VRhGM.jpg?size=1728x2160&quality=96&sign=4e63b6ade82661e9b8988348b631ffb9&type=album"
   },
   {
     name: 'Фиолент, Севастополь',
-    link: p5
+    link: "https://sun9-73.userapi.com/impg/ugPc3z1SBc-aE1hyldbVSZuEnxoC4YaR24zCIg/N8rbJvLLy9Q.jpg?size=2340x1560&quality=96&sign=1498608e77961901ae13f90573f3779b&type=album"
   },
   {
     name: 'Форос, Ялта',
-    link: p6
+    link: "https://sun9-32.userapi.com/impf/c824604/v824604756/13d83a/zRCEyVelzWE.jpg?size=1477x2160&quality=96&sign=b8e9819bb3d65897db3a87664a8a2135&type=album"
   }
 ]; 
 
