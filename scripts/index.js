@@ -48,7 +48,7 @@ export const api = new Api({
 
 
 function createCard(cardData) {
-    const card = new Card(cardData, "#card-template", handleCardClick, handleCardRemove);
+    const card = new Card(cardData, "#card-template", handleCardClick, handleCardRemove, handleCardLike, userInfo._id);
     const cardItem = card.createCard();
 
     return cardItem;
@@ -73,6 +73,25 @@ function handleCardRemove() {
     });
 
     deletePopup.open();
+}
+
+function handleCardLike() {
+    if (this._cardData.likes.some(userLiked => (userLiked._id === userInfo._id))) {
+        api.unlikeCard(this._cardData._id)
+        .then(cardData => {
+            this._cardData = cardData;
+            this._updateLikesCount();
+        })
+        
+    } else {
+        api.likeCard(this._cardData._id)
+        .then(cardData => {
+            this._cardData = cardData;
+            this._updateLikesCount();
+        })
+    }
+
+    this._cardLikeButton.classList.toggle("card__like-button_active");
 }
 
 function handleEditPopupSubmit(e) {
