@@ -28,8 +28,8 @@ export const userInfo = new UserInfo({ userNameSelector: ".profile__name", userA
 
 export const deletePopup = new PopupConfirm(".popup_type_delete");
 const editPopup = new PopupWithForm(".popup_type_edit", { handleSubmit: handleEditPopupSubmit, handleOpen: handleOpenEditPopup, validator: editFormValidator });
-const addPlacePopup = new PopupWithForm(".popup_type_new-place", { handleSubmit: handleAddPopupSubmit, validator: addFormValidator });
-const avatarUpdatePopup = new PopupWithForm(".popup_type_avatar", { handleSubmit: handleAvatarUpdateSubmit, validator: avatarUpdateValidator })
+const addPlacePopup = new PopupWithForm(".popup_type_new-place", { handleSubmit: handleAddPopupSubmit, validator: addFormValidator, handleOpen: handleOpenAddPlacePopup });
+const avatarUpdatePopup = new PopupWithForm(".popup_type_avatar", { handleSubmit: handleAvatarUpdateSubmit, validator: avatarUpdateValidator, handleOpen: handleOpenAvatarPopup })
 const viewPopup = new PopupWithImage(".popup_type_view");
 
 const cardsSection = new Section({
@@ -136,7 +136,17 @@ function handleAvatarUpdateSubmit(e) {
 }
 
 function handleOpenEditPopup() {
+    editFormValidator.resetValidation();
     this.fillFormWithData(userInfo.getUserInfo())
+}
+
+function handleOpenAddPlacePopup() {
+    addFormValidator.resetValidation();
+
+}
+
+function handleOpenAvatarPopup() {
+    avatarUpdateValidator.resetValidation();
 }
 
 

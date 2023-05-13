@@ -1,7 +1,7 @@
 import Popup from "./Popup.js";
 
 export default class PopupWithForm extends Popup {
-    constructor(selector, { handleSubmit, handleOpen, validator }) {
+    constructor(selector, { handleSubmit, handleOpen }) {
         super(selector);
 
         this._handleSubmit = handleSubmit;
@@ -9,8 +9,6 @@ export default class PopupWithForm extends Popup {
         this._formElement = this._popupElement.querySelector(".popup__form");
         this._submitButton = this._popupElement.querySelector(".popup__submit-button");
         this._buttonText = this._submitButton.textContent;
-
-        this._validator = validator;
     }
 
     open() {
@@ -19,8 +17,6 @@ export default class PopupWithForm extends Popup {
         
         // Если была передана функция, обрабатывающая открытие попапа - запускаю ее
         this._handleOpen?.();
-
-        this._validator.resetValidation();
     }
 
     setEventListeners() {
