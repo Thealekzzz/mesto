@@ -17,7 +17,14 @@ export default class PopupConfirm extends Popup {
 
         this._submitButton.addEventListener("click", () => {
             this._handleSubmit();
-            this.close();
         });
+    }
+
+    setLoading(isLoading) {
+        if (isLoading) {
+            this._submitButton.textContent = "Сохранение...";
+        } else {
+            this._submitButton.textContent = this._buttonText;
+        }
     }
 }

@@ -48,7 +48,7 @@ export const api = new Api({
 
 
 function createCard(cardData) {
-    const card = new Card(cardData, "#card-template", handleCardClick);
+    const card = new Card(cardData, "#card-template", handleCardClick, handleCardRemove);
     const cardItem = card.createCard();
 
     return cardItem;
@@ -56,6 +56,23 @@ function createCard(cardData) {
 
 function handleCardClick() {
     viewPopup.open({ link: this._cardData.link, cardName: this._cardData.name });
+}
+
+function handleCardRemove() {
+    deletePopup.setHandleSubmit(() => {
+        deletePopup.setLoading(true);
+
+        api.removeCard(this._cardData._id)
+        .then(() => {
+            this._cardElement.remove();
+            this._cardElement = null;
+
+            deletePopup.setLoading(false);
+            deletePopup.close();
+        })
+    });
+
+    deletePopup.open();
 }
 
 function handleEditPopupSubmit(e) {

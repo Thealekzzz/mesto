@@ -1,10 +1,11 @@
-import { api, deletePopup, userInfo } from "..";
+import { api, userInfo } from "..";
 
 export default class Card {
-    constructor(cardData, selector, handleCardClick) {
+    constructor(cardData, selector, handleCardClick, handleCardRemove) {
         this._cardData = cardData;
         this._selector = selector;
         this._handleCardClick = handleCardClick;
+        this._handleCardRemove = handleCardRemove;
         this._cardElement = this._getTemplate();
 
     }
@@ -40,18 +41,16 @@ export default class Card {
         this._cardLikesElement.textContent = this._cardData.likes.length;
     }
     
-    _removeCard() {
-        api.removeCard(this._cardData._id)
-        .then(res => {
-            this._cardElement.remove();
-            this._cardElement = null;
-        })
-    }
+    // _removeCard() {
+    //     api.removeCard(this._cardData._id)
+    //     .then(res => {
+    //         this._cardElement.remove();
+    //         this._cardElement = null;
+    //     })
+    // }
 
-    _showDeletePopup() {
-        deletePopup.setHandleSubmit(this._removeCard.bind(this));
-        deletePopup.open();
-    }
+    // _showDeletePopup() {
+    // }
 
     createCard() {
         const cardImageElement = this._cardElement.querySelector(".card__image");
@@ -69,7 +68,7 @@ export default class Card {
 
         if (this._cardData.owner._id === userInfo._id) {
             this._cardRemoveButton = this._cardElement.querySelector(".card__remove-button");
-            this._cardRemoveButton.addEventListener("click", () => this._showDeletePopup());
+            this._cardRemoveButton.addEventListener("click", () => this._handleCardRemove());
         } else {
             this._cardElement.querySelector(".card__remove-button").remove();
         }
