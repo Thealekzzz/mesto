@@ -12,7 +12,7 @@ export default class PopupWithForm extends Popup {
     }
 
     open() {
-        this.setLoading(false);
+        // this.setLoading(false);
         super.open();
         
         // Если была передана функция, обрабатывающая открытие попапа - запускаю ее

@@ -67,9 +67,11 @@ function handleCardRemove() {
             this._cardElement.remove();
             this._cardElement = null;
 
-            deletePopup.setLoading(false);
             deletePopup.close();
         })
+        .finally(() => {
+            deletePopup.setLoading(false);
+        });
     });
 
     deletePopup.open();
@@ -103,7 +105,10 @@ function handleEditPopupSubmit(e) {
         userInfo.setUserInfo(userData);
         this.close();
     })
-    .catch(console.error);
+    .catch(console.error)
+    .finally(() => {
+        this.setLoading(false);
+    });
 
 }
 
@@ -116,7 +121,10 @@ function handleAddPopupSubmit(e) {
         cardsSection.setItem(createCard(cardData));
         this.close();
     })
-    .catch(console.error);
+    .catch(console.error)
+    .finally(() => {
+        this.setLoading(false);
+    });
 
 }
 
@@ -131,7 +139,10 @@ function handleAvatarUpdateSubmit(e) {
         userInfo.setUserInfo(data);
         this.close();
     })
-    .catch(console.error);
+    .catch(console.error)
+    .finally(() => {
+        this.setLoading(false);
+    });
 
 }
 
