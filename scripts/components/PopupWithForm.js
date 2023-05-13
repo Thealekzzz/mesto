@@ -20,7 +20,7 @@ export default class PopupWithForm extends Popup {
         // Если была передана функция, обрабатывающая открытие попапа - запускаю ее
         this._handleOpen?.();
 
-        this._validator.toggleButtonState();
+        this._validator.resetValidation();
     }
 
     setEventListeners() {

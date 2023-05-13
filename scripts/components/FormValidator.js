@@ -14,7 +14,7 @@ export default class FormValidator {
         this._inputList.forEach(inputElement => {
             inputElement.addEventListener("input", () => {
                 this._checkInputValidity(inputElement);
-                this.toggleButtonState();
+                this._toggleButtonState();
             });
         });
     }
@@ -45,7 +45,7 @@ export default class FormValidator {
         
     }
 
-    toggleButtonState() {
+    _toggleButtonState() {
         const isFormValid = this._inputList.every(inputElement => inputElement.validity.valid);
 
         if (isFormValid) {
@@ -59,6 +59,16 @@ export default class FormValidator {
             this._buttonElement.classList.remove("hoverable");
 
         }
+    }
+
+    resetValidation() {
+        this._toggleButtonState();
+
+        this._inputList.forEach(inputElement => {
+            const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
+
+            this._hideInputError(errorElement, inputElement);
+        })
     }
 }
 
