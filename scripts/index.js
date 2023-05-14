@@ -90,13 +90,13 @@ function handleCardLike() {
     .then(recievedCardData => {
         this.setCardData(recievedCardData);
         this.updateLikesCount();
+        this.cardLikeButton.classList.toggle("card__like-button_active");
     })
     .catch((err) => {
         console.log("Ошибка обновления данных о лайке");
         console.error(err);
     })
 
-    this.cardLikeButton.classList.toggle("card__like-button_active");
 }
 
 function handleEditPopupSubmit(e) {
