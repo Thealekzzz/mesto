@@ -55,19 +55,22 @@ function createCard(cardData) {
 }
 
 function handleCardClick() {
-    viewPopup.open({ link: this._cardData.link, cardName: this._cardData.name });
+    viewPopup.open({ link: this.getCardData().link, cardName: this.getCardData().name });
 }
 
 function handleCardRemove() {
     deletePopup.setHandleSubmit(() => {
         deletePopup.setLoading(true);
 
-        api.removeCard(this._cardData._id)
+        api.removeCard(this.getCardId())
         .then(() => {
-            this._cardElement.remove();
-            this._cardElement = null;
+            this.deleteCard();
 
             deletePopup.close();
+        })
+        .catch((err) => {
+            console.log("Ошибка при удалении фотографии");
+            console.error(err);
         })
         .finally(() => {
             deletePopup.setLoading(false);
@@ -78,34 +81,37 @@ function handleCardRemove() {
 }
 
 function handleCardLike() {
-    if (this._cardData.likes.some(userLiked => (userLiked._id === userInfo._id))) {
-        api.unlikeCard(this._cardData._id)
-        .then(cardData => {
-            this._cardData = cardData;
-            this._updateLikesCount();
-        })
-        
-    } else {
-        api.likeCard(this._cardData._id)
-        .then(cardData => {
-            this._cardData = cardData;
-            this._updateLikesCount();
-        })
-    }
+    const apiFunction = (this.getCardData().likes.some(userLiked => (userLiked._id === userInfo._id)))
+    ? api.unlikeCard.bind(api)
+    : api.likeCard.bind(api);
 
-    this._cardLikeButton.classList.toggle("card__like-button_active");
+
+    apiFunction(this.getCardId())
+    .then(recievedCardData => {
+        this.setCardData(recievedCardData);
+        this.updateLikesCount();
+    })
+    .catch((err) => {
+        console.log("Ошибка обновления данных о лайке");
+        console.error(err);
+    })
+
+    this.cardLikeButton.classList.toggle("card__like-button_active");
 }
 
 function handleEditPopupSubmit(e) {
     e.preventDefault();
     this.setLoading(true);
 
-    api.patchUserData(this._getInputValues())
-    .then(userData => {
-        userInfo.setUserInfo(userData);
+    api.patchUserData(this.getInputValues())
+    .then(recievedUserData => {
+        userInfo.setUserInfo(recievedUserData);
         this.close();
     })
-    .catch(console.error)
+    .catch((err) => {
+        console.log("Ошибка при изменении данных пользователя");
+        console.error(err);
+    })
     .finally(() => {
         this.setLoading(false);
     });
@@ -116,12 +122,15 @@ function handleAddPopupSubmit(e) {
     e.preventDefault();
     this.setLoading(true);
 
-    api.addCard(this._getInputValues())
-    .then(cardData => {
-        cardsSection.setItem(createCard(cardData));
+    api.addCard(this.getInputValues())
+    .then(recievedCardData => {
+        cardsSection.setItem(createCard(recievedCardData));
         this.close();
     })
-    .catch(console.error)
+    .catch((err) => {
+        console.log("Ошибка при добавлении фотографии");
+        console.error(err);
+    })
     .finally(() => {
         this.setLoading(false);
     });
@@ -132,14 +141,17 @@ function handleAvatarUpdateSubmit(e) {
     e.preventDefault();
     this.setLoading(true);
 
-    const avatarURL = this._getInputValues().link;
+    const avatarURL = this.getInputValues().link;
 
     api.updateAvatar(avatarURL)
-    .then(data => {
-        userInfo.setUserInfo(data);
+    .then(recievedUserData => {
+        userInfo.setUserInfo(recievedUserData);
         this.close();
     })
-    .catch(console.error)
+    .catch((err) => {
+        console.log("Ошибка при обновлении аватара");
+        console.error(err);
+    })
     .finally(() => {
         this.setLoading(false);
     });
@@ -175,15 +187,15 @@ placeAddButton.addEventListener("click", () => addPlacePopup.open());
 avatarUpdateButton.addEventListener("click", () => avatarUpdatePopup.open());
 
 
-api.getUserData()
-.then(userData => {
-    userInfo.setUserInfo(userData);
-})
+Promise.all([api.getUserData(), api.getInitialCards()])
+.then(([recievedUserData, recievedCards]) => {
+    userInfo.setUserInfo(recievedUserData);
 
-api.getInitialCards()
-.then(cards => {
-    cards.reverse();
-    cardsSection.updateItems(cards);
+    recievedCards.reverse();
+    cardsSection.updateItems(recievedCards);
     cardsSection.renderItems();
 })
-
+.catch(err => {
+    console.log("Ошибка при загрузке данных пользователя или фотографий");
+    console.error(err);
+})
