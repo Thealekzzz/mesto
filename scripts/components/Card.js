@@ -18,8 +18,13 @@ export default class Card {
             .cloneNode(true);
     }
 
-    _updateLikesCount() {
+    updateLikesCount() {
         this._cardLikesElement.textContent = this._cardData.likes.length;
+    }
+
+    setLikesCount(likes) {
+        this._cardData.likes = likes;
+        this._cardLikesElement.textContent = likes.length;
     }
 
     createCard() {
@@ -28,8 +33,8 @@ export default class Card {
         cardImageElement.setAttribute("alt", `${this._cardData.name}, фото.`);
         cardImageElement.addEventListener("click", () => this._handleCardClick());
 
-        this._cardLikeButton = this._cardElement.querySelector(".card__like-button");
-        this._cardLikeButton.addEventListener("click", this._handleCardLike.bind(this));
+        this.cardLikeButton = this._cardElement.querySelector(".card__like-button");
+        this.cardLikeButton.addEventListener("click", this._handleCardLike.bind(this));
         
         this._cardLikesElement = this._cardElement.querySelector(".card__like-count");
         this._cardLikesElement.textContent = this._cardData.likes.length;
@@ -45,14 +50,26 @@ export default class Card {
 
         // Если на карточке есть лайк текущего профиля - сделать лайк активным
         if (this._cardData.likes.some(userLiked => userLiked._id === this._userId)) {
-            this._cardLikeButton.classList.toggle("card__like-button_active");
+            this.cardLikeButton.classList.toggle("card__like-button_active");
         }
     
         return this._cardElement;
     }
 
-    updateLikesCount(likes) {
-        this._cardData.likes = likes;
-        this._cardLikesElement.textContent = likes.length;
+    deleteCard() {
+        this._cardElement.remove();
+        this._cardElement = null;
+    }
+
+    getCardData() {
+        return this._cardData;
+    }
+
+    setCardData(data) {
+        this._cardData = data;
+    }
+
+    getCardId() {
+        return this._cardData._id;
     }
 }
