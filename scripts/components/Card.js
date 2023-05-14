@@ -18,6 +18,16 @@ export default class Card {
             .cloneNode(true);
     }
 
+    _setEventListeners() {
+        this.cardImageElement.addEventListener("click", () => this._handleCardClick());
+        this.cardLikeButton.addEventListener("click", this._handleCardLike.bind(this));
+        
+        if (this._cardData.owner._id === this._userId) {
+            this._cardRemoveButton.addEventListener("click", this._handleCardRemove.bind(this));
+        }
+
+    }
+
     updateLikesCount() {
         this._cardLikesElement.textContent = this._cardData.likes.length;
     }
@@ -28,13 +38,11 @@ export default class Card {
     }
 
     createCard() {
-        const cardImageElement = this._cardElement.querySelector(".card__image");
-        cardImageElement.setAttribute("src", this._cardData.link);
-        cardImageElement.setAttribute("alt", `${this._cardData.name}, фото.`);
-        cardImageElement.addEventListener("click", () => this._handleCardClick());
+        this.cardImageElement = this._cardElement.querySelector(".card__image");
+        this.cardImageElement.setAttribute("src", this._cardData.link);
+        this.cardImageElement.setAttribute("alt", `${this._cardData.name}, фото.`);
 
         this.cardLikeButton = this._cardElement.querySelector(".card__like-button");
-        this.cardLikeButton.addEventListener("click", this._handleCardLike.bind(this));
         
         this._cardLikesElement = this._cardElement.querySelector(".card__like-count");
         this._cardLikesElement.textContent = this._cardData.likes.length;
@@ -43,7 +51,6 @@ export default class Card {
 
         if (this._cardData.owner._id === this._userId) {
             this._cardRemoveButton = this._cardElement.querySelector(".card__remove-button");
-            this._cardRemoveButton.addEventListener("click", this._handleCardRemove.bind(this));
         } else {
             this._cardElement.querySelector(".card__remove-button").remove();
         }
@@ -52,6 +59,8 @@ export default class Card {
         if (this._cardData.likes.some(userLiked => userLiked._id === this._userId)) {
             this.cardLikeButton.classList.toggle("card__like-button_active");
         }
+
+        this._setEventListeners();
     
         return this._cardElement;
     }
