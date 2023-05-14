@@ -13,7 +13,6 @@ export default class PopupWithForm extends Popup {
     }
 
     open() {
-        // this.setLoading(false);
         super.open();
         
         // Если была передана функция, обрабатывающая открытие попапа - запускаю ее
@@ -38,11 +37,9 @@ export default class PopupWithForm extends Popup {
     }
 
     setLoading(isLoading) {
-        if (isLoading) {
-            this._submitButton.textContent = "Сохранение...";
-        } else {
-            this._submitButton.textContent = this._buttonText;
-        }
+        this._submitButton.textContent = isLoading 
+        ? "Сохранение..." 
+        : this._buttonText;
     }
 
     getInputValues() {
