@@ -4,104 +4,77 @@ export default class Api {
         this.headers = options.headers;
     }
 
-    getInitialCards() {
-        return new Promise((resolve, reject) => {
-            fetch(`${this.baseUrl}/cards`, {
-                headers: this.headers
-            })
-                .then(res => res.json())
-                .then(resolve)
-                .catch(reject);
-        });
+    _checkResponce(res) {
+        if (res.ok) {
+            return res.json();
+        }
+        return Promise.reject(`Ошибка ${res.status}`);
     }
 
-    getUserData() {
-        return new Promise((resolve, reject) => {
-            fetch(`${this.baseUrl}/users/me`, {
-                headers: this.headers
-            })
-                .then(res => res.json())
-                .then(resolve)
-                .catch(reject);
+    async getInitialCards() {
+        const res = await fetch(`${this.baseUrl}/cards`, {
+            headers: this.headers
         });
+        return this._checkResponce(res);
     }
 
-    patchUserData(userData) {
-        return new Promise((resolve, reject) => {
-            fetch(`${this.baseUrl}/users/me`, {
-                method: "PATCH",
-                headers: this.headers,
-                body: JSON.stringify(userData)
-            })
-                .then(res => res.json())
-                .then(resolve)
-                .catch(reject);
+    async getUserData() {
+        const res = await fetch(`${this.baseUrl}/users/me`, {
+            headers: this.headers
         });
+        return this._checkResponce(res);
     }
 
-    addCard(cardData) {
-        return new Promise((resolve, reject) => {
-            fetch(`${this.baseUrl}/cards`, {
-                method: "POST",
-                headers: this.headers,
-                body: JSON.stringify(cardData)
-            })
-                .then(res => res.json())
-                .then(resolve)
-                .catch(reject);
+    async patchUserData(userData) {
+        const res = await fetch(`${this.baseUrl}/users/me`, {
+            method: "PATCH",
+            headers: this.headers,
+            body: JSON.stringify(userData)
         });
+        return this._checkResponce(res);
     }
 
-    removeCard(cardId) {
-        return new Promise((resolve, reject) => {
-            fetch(`${this.baseUrl}/cards/${cardId}`, {
-                method: "DELETE",
-                headers: this.headers,
-            })
-                .then(res => res.json())
-                .then(resolve)
-                .catch(reject);
+    async addCard(cardData) {
+        const res = await fetch(`${this.baseUrl}/cards`, {
+            method: "POST",
+            headers: this.headers,
+            body: JSON.stringify(cardData)
         });
+        return this._checkResponce(res);
     }
 
-    likeCard(cardId) {
-        return new Promise((resolve, reject) => {
-            fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
-                method: "PUT",
-                headers: this.headers,
-            })
-                .then(res => res.json())
-                .then(resolve)
-                .catch(reject);
+    async removeCard(cardId) {
+        const res = await fetch(`${this.baseUrl}/cards/${cardId}`, {
+            method: "DELETE",
+            headers: this.headers,
         });
+        return this._checkResponce(res);
     }
 
-    unlikeCard(cardId) {
-        return new Promise((resolve, reject) => {
-            fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
-                method: "DELETE",
-                headers: this.headers,
-            })
-                .then(res => res.json())
-                .then(resolve)
-                .catch(reject);
+    async likeCard(cardId) {
+        const res = await fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
+            method: "PUT",
+            headers: this.headers,
         });
+        return this._checkResponce(res);
     }
 
-    updateAvatar(url) {
-        return new Promise((resolve, reject) => {
-            fetch(`${this.baseUrl}/users/me/avatar`, {
-                method: "PATCH",
-                headers: this.headers,
-                body: JSON.stringify({
-                    avatar: url
-                })
-            })
-                .then(res => res.json())
-                .then(resolve)
-                .catch(reject);
+    async unlikeCard(cardId) {
+        const res = await fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
+            method: "DELETE",
+            headers: this.headers,
         });
-
+        return this._checkResponce(res);
     }
 
+    async updateAvatar(url) {
+        const res = await fetch(`${this.baseUrl}/users/me/avatar`, {
+            method: "PATCH",
+            headers: this.headers,
+            body: JSON.stringify({
+                avatar: url
+            })
+        });
+        return this._checkResponce(res);
+    }
 }
